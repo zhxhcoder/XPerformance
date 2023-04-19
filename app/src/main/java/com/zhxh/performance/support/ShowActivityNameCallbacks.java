@@ -34,7 +34,7 @@ public class ShowActivityNameCallbacks implements Application.ActivityLifecycleC
             FrameLayout fl = decorView.findViewById(android.R.id.content);
 
             //遍历fl,对里面的每个view进行hook
-            HookClickHelper.getInstance().traverseHookView(fl, fl);
+            HookClickHelper.getInstance().traverseHookView(fl, fl,"");
 
             String activityName = activity.getClass().getSimpleName();
 
