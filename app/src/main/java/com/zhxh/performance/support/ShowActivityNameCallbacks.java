@@ -2,6 +2,7 @@ package com.zhxh.performance.support;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -9,8 +10,6 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.zhxh.performance.MainActivity;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -41,8 +40,7 @@ public class ShowActivityNameCallbacks implements Application.ActivityLifecycleC
             FrameLayout fl = decorView.findViewById(android.R.id.content);
 
             //遍历fl,对里面的每个view进行hook
-            traverseViewGroup(fl);
-
+            traverseViewGroup(activity, fl);
 
             String activityName = activity.getClass().getSimpleName();
 
@@ -82,9 +80,10 @@ public class ShowActivityNameCallbacks implements Application.ActivityLifecycleC
     }
 
 
-// 遍历viewGroup
-
-    public int traverseViewGroup(View view) {
+    /*
+    ctx 只为传值用
+     */
+    public int traverseViewGroup(Context ctx, View view) {
         int viewCount = 0;
         if (null == view) {
             return 0;
@@ -93,24 +92,25 @@ public class ShowActivityNameCallbacks implements Application.ActivityLifecycleC
             //遍历ViewGroup,是子view加1，是ViewGroup递归调用
             for (int i = 0; i < ((ViewGroup) view).getChildCount(); i++) {
                 View child = ((ViewGroup) view).getChildAt(i);
-
-                hook(child);
-
+                hook(ctx, child);
                 if (child instanceof ViewGroup) {
-                    viewCount += traverseViewGroup(((ViewGroup) view).getChildAt(i));
+                    viewCount += traverseViewGroup(ctx, ((ViewGroup) view).getChildAt(i));
                 } else {
                     viewCount++;
                 }
             }
         } else {
-            hook(view);
+            hook(ctx, view);
             viewCount++;
         }
         return viewCount;
     }
 
 
-    private void hook(View view) {
+    /*
+    ctx
+     */
+    private void hook(Context ctx, View view) {
         try {
             //获取View 的class
             Class clazzView = Class.forName("android.view.View");
@@ -130,7 +130,7 @@ public class ShowActivityNameCallbacks implements Application.ActivityLifecycleC
             //HookListener就可以做一些自己的事情了。
             //他只会接收一个View.OnClickListener接口，并不在乎他的实现类有多少个。
             // 但是实现了接口的类就都会执行了。
-            field.set(listenerInfo, new HookListener((View.OnClickListener) field.get(listenerInfo)));
+            field.set(listenerInfo, new HookListener(ctx, (View.OnClickListener) field.get(listenerInfo)));
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (NoSuchMethodException e) {
@@ -147,8 +147,10 @@ public class ShowActivityNameCallbacks implements Application.ActivityLifecycleC
     //因为mOnClickListener变量是一个View.OnClickListener所以必须要实现这个接口
     public static class HookListener implements View.OnClickListener {
         private View.OnClickListener mOriginalListener;
+        private Context mCtx;
 
-        public HookListener(View.OnClickListener originalListener) {
+        public HookListener(Context ctx, View.OnClickListener originalListener) {
+            mCtx = ctx;
             mOriginalListener = originalListener;
         }
 
@@ -157,7 +159,7 @@ public class ShowActivityNameCallbacks implements Application.ActivityLifecycleC
             if (mOriginalListener != null) {
                 mOriginalListener.onClick(v);
             }
-            Toast.makeText(v.getContext(), "hook:"+v.getAccessibilityClassName(), Toast.LENGTH_LONG).show();
+            Toast.makeText(v.getContext(), v.getAccessibilityClassName() + "@" + v.getContext().getClass().getSimpleName() + "@" + v.getId(), Toast.LENGTH_LONG).show();
         }
     }
 }
