@@ -102,7 +102,7 @@ public class HookClickHelper {
             if (mOriginalListener != null) {
                 mOriginalListener.onClick(v);
             }
-            Toast.makeText(v.getContext(), v.getAccessibilityClassName() + "@" + v.getContext().getClass().getSimpleName() + "@" + v.getId(), Toast.LENGTH_LONG).show();
+            Toast.makeText(v.getContext(), mSrc.getClass().getSimpleName() + ":" + v.getAccessibilityClassName() + "@" + v.getContext().getClass().getSimpleName() + "@" + v.getId(), Toast.LENGTH_LONG).show();
         }
     }
 }
