@@ -63,16 +63,19 @@ public class HookClickHelper {
             //获取android.view.View$ListenerInfo 类的class
             Class clazzInfo = Class.forName("android.view.View$ListenerInfo");
             //获取ListenerInfo类中的参数mOnClickListener
-            Field field = clazzInfo.getDeclaredField("mOnClickListener");
+            Field field1 = clazzInfo.getDeclaredField("mOnClickListener");
             //给listenerInfo所对应的类（也就是ListenerInfo）中的参数mOnClickListener 赋值。
             //赋的值就是我们要hook的
             //我们先field.get(listenerInfo) 获取View.OnClickListener，然后传递给HookListener
             //HookListener就可以做一些自己的事情了。
             //他只会接收一个View.OnClickListener接口，并不在乎他的实现类有多少个。
             // 但是实现了接口的类就都会执行了。
-            field.set(listenerInfo, new HookListener(src, (View.OnClickListener) field.get(listenerInfo), linkStr));
+            field1.set(listenerInfo, new HookListener(src, (View.OnClickListener) field1.get(listenerInfo), linkStr));
 
             //长按按钮
+            Field field2 = clazzInfo.getDeclaredField("mOnLongClickListener");
+            field2.set(listenerInfo, new HookLongListener(src, (View.OnLongClickListener) field2.get(listenerInfo), linkStr));
+
 
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
@@ -84,6 +87,28 @@ public class HookClickHelper {
             e.printStackTrace();
         } catch (NoSuchFieldException e) {
             e.printStackTrace();
+        }
+    }
+
+    public static class HookLongListener implements View.OnLongClickListener {
+        private View.OnLongClickListener mOriginalListener;
+        private Object mSrc;
+        private String mLinkStr;
+
+        public HookLongListener(Object src, View.OnLongClickListener originalListener, String linkStr) {
+            mSrc = src;
+            mLinkStr = linkStr;
+            mOriginalListener = originalListener;
+        }
+
+        @Override
+        public boolean onLongClick(View v) {
+            if (mOriginalListener != null) {
+                mOriginalListener.onLongClick(v);
+            }
+            //获取到所有view的父母，爷爷-父亲-自己
+            Toast.makeText(v.getContext(), "onLongClick:" + mSrc.getClass().getSimpleName() + "-->\n" + mLinkStr + "-" + v.getClass().getSimpleName(), Toast.LENGTH_LONG).show();
+            return false;
         }
     }
 
@@ -105,7 +130,7 @@ public class HookClickHelper {
                 mOriginalListener.onClick(v);
             }
             //获取到所有view的父母，爷爷-父亲-自己
-            Toast.makeText(v.getContext(), mSrc.getClass().getSimpleName() + "-->\n" + mLinkStr + "-" + v.getClass().getSimpleName(), Toast.LENGTH_LONG).show();
+            Toast.makeText(v.getContext(), "onClick:" + mSrc.getClass().getSimpleName() + "-->\n" + mLinkStr + "-" + v.getClass().getSimpleName(), Toast.LENGTH_LONG).show();
         }
     }
 }
