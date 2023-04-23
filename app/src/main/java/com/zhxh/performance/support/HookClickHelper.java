@@ -71,6 +71,9 @@ public class HookClickHelper {
             //他只会接收一个View.OnClickListener接口，并不在乎他的实现类有多少个。
             // 但是实现了接口的类就都会执行了。
             field.set(listenerInfo, new HookListener(src, (View.OnClickListener) field.get(listenerInfo), linkStr));
+
+            //长按按钮
+
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (NoSuchMethodException e) {
@@ -102,7 +105,7 @@ public class HookClickHelper {
                 mOriginalListener.onClick(v);
             }
             //获取到所有view的父母，爷爷-父亲-自己
-            Toast.makeText(v.getContext(), mSrc.getClass().getSimpleName() + "-->\n" + mLinkStr + "-" + v.getClass().getSimpleName() + "\n@" + v.getId(), Toast.LENGTH_LONG).show();
+            Toast.makeText(v.getContext(), mSrc.getClass().getSimpleName() + "-->\n" + mLinkStr + "-" + v.getClass().getSimpleName(), Toast.LENGTH_LONG).show();
         }
     }
 }
