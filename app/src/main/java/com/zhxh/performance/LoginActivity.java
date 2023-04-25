@@ -92,8 +92,8 @@ public class LoginActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         //密码保险箱只是在onDestroy事件中调用
-        name.removeTextChangedListener(watcher);
-        name.setText("wwwwwwwww");
+//        name.removeTextChangedListener(watcher);
+//        name.setText("wwwwwwwww");
     }
 
     InputFilter mInputFilter = new InputFilter() {
