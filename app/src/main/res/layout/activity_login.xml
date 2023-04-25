@@ -19,7 +19,9 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginTop="20dp"
-        android:hint="输入密码" />
+        android:hint="输入密码"
+        android:inputType="textPassword"
+        android:singleLine="true" />
 
     <Button
         android:id="@+id/login"
@@ -27,6 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="20dp"
+        android:singleLine="true"
         android:text="登录" />
 
 
