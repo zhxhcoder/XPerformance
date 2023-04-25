@@ -23,13 +23,14 @@ public class LoginActivity extends AppCompatActivity {
 
     Map<Integer, CharSequence> nameMap = new HashMap<>();
     TextWatcher watcher;
+    EditText name;
+    EditText pwd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        EditText name;
-        EditText pwd;
+
 
         name = findViewById(R.id.name);
         pwd = findViewById(R.id.pwd);
@@ -81,11 +82,18 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //成功之后，然后再让 name复原明文
                 Toast.makeText(LoginActivity.this, name.getText().toString() + ":" + pwd.getText().toString(), Toast.LENGTH_LONG).show();
-                name.removeTextChangedListener(watcher);
-                name.setText("wwwwwwwww");
+
                 startActivity(new Intent(LoginActivity.this, DashActivity.class));
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        //密码保险箱只是在onDestroy事件中调用
+        name.removeTextChangedListener(watcher);
+        name.setText("wwwwwwwww");
     }
 
     InputFilter mInputFilter = new InputFilter() {
