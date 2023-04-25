@@ -43,7 +43,7 @@ public class ShowActivityNameCallbacks implements Application.ActivityLifecycleC
             textView.setText(activityName);
             textView.setTextSize(13);
             textView.setTextColor(Color.parseColor("#00A443"));
-            textView.setPadding(25, 140, 0, 0);
+            textView.setPadding(25, 40, 0, 0);
             textView.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
             fl.addView(textView);
         }

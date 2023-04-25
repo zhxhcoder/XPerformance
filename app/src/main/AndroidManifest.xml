@@ -13,7 +13,7 @@
         android:theme="@style/Theme.XPerformance"
         tools:targetApi="31">
         <activity
-            android:name=".PwdActivity"
+            android:name=".LoginActivity"
             android:exported="false" />
         <activity
             android:name=".DashActivity"
