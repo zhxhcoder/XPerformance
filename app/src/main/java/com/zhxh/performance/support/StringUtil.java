@@ -15,6 +15,6 @@ public class StringUtil {
         if (isEmpty(s)) {
             return "";
         }
-        return s.toString().replaceFirst(regex, replacement);
+        return s.toString().replaceAll(regex, replacement);
     }
 }
