@@ -12,6 +12,9 @@ import android.widget.TextView;
  * 保存到最
  */
 public class DebugHelper {
+    public static long startTime;
+    public static long endTime;
+
     //全局的一个noticeBoard
 
     //含有noticeBoard的最上面Activity
@@ -52,6 +55,7 @@ public class DebugHelper {
     public static String isMemAccountInfo() {
         return "\n内存记住账号：" + true;
     }
+
     public static String isLocalAccountInfo() {
         return "\n本地记住账号：" + false;
     }
