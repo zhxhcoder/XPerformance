@@ -20,12 +20,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        TextView tvTime = findViewById(R.id.tvTime);
-        tvTime.append("启动时间：" + DebugHelper.startTime);
-        tvTime.append("结束时间：" + DebugHelper.endTime);
-        tvTime.append("耗时：" + (DebugHelper.endTime - DebugHelper.startTime) + "毫秒");
-
         findViewById(R.id.llLayout).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,7 +45,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
+        //onWindowFocusChanged是onCreate之后
         DebugHelper.endTime = System.currentTimeMillis();
+
+        TextView tvTime = findViewById(R.id.tvTime);
+        tvTime.append("启动时间：" + DebugHelper.startTime);
+        tvTime.append("\n结束时间：" + DebugHelper.endTime);
+        tvTime.append("\n耗时：" + (DebugHelper.endTime - DebugHelper.startTime) + "毫秒");
     }
 
     public void onClick(View view) {
