@@ -22,7 +22,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         TextView tvTime = findViewById(R.id.tvTime);
-        tvTime.setText("启动时间：" + (DebugHelper.endTime - DebugHelper.startTime) + "毫秒");
+        tvTime.append("启动时间：" + DebugHelper.startTime);
+        tvTime.append("结束时间：" + DebugHelper.endTime);
+        tvTime.append("耗时：" + (DebugHelper.endTime - DebugHelper.startTime) + "毫秒");
 
         findViewById(R.id.llLayout).setOnClickListener(new View.OnClickListener() {
             @Override
