@@ -23,6 +23,14 @@
         android:inputType="textPassword"
         android:singleLine="true" />
 
+    <com.zhxh.performance.widget.PwdEditText
+        android:id="@+id/xPwd"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="20dp"
+        android:hint="输入明文密码"
+        android:singleLine="true" />
+
     <Button
         android:id="@+id/login"
         android:layout_width="wrap_content"
