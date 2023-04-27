@@ -42,6 +42,14 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /*
+    相关执行打印:
+    进入页面: onStart---->onResume---->onAttachedToWindow----------->onWindowVisibilityChanged--visibility=0---------->onWindowFocusChanged(true)------->
+
+    退出页面: onPause---->onStop---->onWindowFocusChanged(false) ---------------------- (lockscreen)
+
+    退出应用 : onPause----->onWindowFocusChanged(false)-------->onWindowVisibilityChanged--visibility=8------------>onStop(to another activity)
+     */
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
