@@ -52,6 +52,13 @@ public class DebugHelper {
         return sb.toString();
     }
 
+    /*
+    刷新notice上面的值
+     */
+    public static void refresh() {
+
+    }
+
     public static String isMemAccountInfo() {
         return "\n内存记住账号：" + true;
     }
