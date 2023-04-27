@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.zhxh.performance.support.StringUtil;
 
+import java.util.Deque;
 import java.util.LinkedList;
 
 /*
@@ -20,7 +21,7 @@ import java.util.LinkedList;
 @SuppressLint("AppCompatCustomView")
 public class PwdEditText extends EditText {
     TextWatcher watcher;
-    LinkedList<Character> charStack = new LinkedList<>();
+    Deque<Character> charDeque = new LinkedList<>();
 
     public PwdEditText(Context context) {
         super(context);
@@ -54,10 +55,10 @@ public class PwdEditText extends EditText {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 //before 0表示添加，1表示删除
                 if (before == 1) {//出栈
-                    charStack.pop();
+                    charDeque.pollLast();
                 } else {
                     char a = s.charAt(start);
-                    charStack.push(a);
+                    charDeque.offer(a);
                 }
                 PwdEditText.this.postDelayed(() -> {
                     //移除监听
@@ -80,8 +81,8 @@ public class PwdEditText extends EditText {
 
     public String getPlainText() {
         StringBuilder sb = new StringBuilder();
-        for (int i = charStack.size() - 1; i >= 0; i--) {
-            sb.append(charStack.get(i));
+        for (char item : charDeque) {
+            sb.append(item);
         }
         return sb.toString();
     }
