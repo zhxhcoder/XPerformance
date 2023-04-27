@@ -6,8 +6,12 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.appcompat.view.ActionMode;
 
 import com.zhxh.performance.support.StringUtil;
 
@@ -16,7 +20,13 @@ import java.util.LinkedList;
 
 /*
  * Created by zhxh on 2023/4/27
+ * 目的：
  * 为了解决华为手机密码保险问题
+ *
+ * 功能：
+ * 输入的每一个字符都会在100ms后变成*号
+ * 禁止了该输入框的复制功能和粘贴功能
+ * 用了一个双端队列维护字符串，getPlainText可以获得明文字符串
  */
 @SuppressLint("AppCompatCustomView")
 public class PwdEditText extends EditText {
@@ -77,6 +87,32 @@ public class PwdEditText extends EditText {
             }
         };
         this.addTextChangedListener(watcher);
+
+        //禁止复制功能
+        this.setLongClickable(false);
+
+        //禁止粘贴功能
+        this.setCustomSelectionActionModeCallback(new android.view.ActionMode.Callback() {
+            @Override
+            public boolean onCreateActionMode(android.view.ActionMode mode, Menu menu) {
+                return false;
+            }
+
+            @Override
+            public boolean onPrepareActionMode(android.view.ActionMode mode, Menu menu) {
+                return false;
+            }
+
+            @Override
+            public boolean onActionItemClicked(android.view.ActionMode mode, MenuItem item) {
+                return false;
+            }
+
+            @Override
+            public void onDestroyActionMode(android.view.ActionMode mode) {
+
+            }
+        });
     }
 
     public String getPlainText() {
