@@ -31,7 +31,6 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-
         name = findViewById(R.id.name);
         pwd = findViewById(R.id.pwd);
 
@@ -69,13 +68,11 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //成功之后，然后再让 name复原明文
-                Toast.makeText(LoginActivity.this, name.getText().toString() + ":" + pwd.getText().toString(), Toast.LENGTH_LONG).show();
-                name.setText("wwwwwwwww");
                 startActivity(new Intent(LoginActivity.this, DashActivity.class));
             }
         });
 
-        name.addTextChangedListener(watcher);
+//        name.addTextChangedListener(watcher);
 
         findViewById(R.id.login).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,11 +86,18 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onStop() {
+        name.setText("onStopBefore" + System.currentTimeMillis());
+        super.onStop();
+        name.setText("onStopAfter" + System.currentTimeMillis());
+    }
+
+    @Override
     protected void onDestroy() {
-        super.onDestroy();
         //密码保险箱只是在onDestroy事件中调用
 //        name.removeTextChangedListener(watcher);
-//        name.setText("wwwwwwwww");
+        name.setText("onDestroy" + System.currentTimeMillis());
+        super.onDestroy();
     }
 
     InputFilter mInputFilter = new InputFilter() {
