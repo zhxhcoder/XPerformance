@@ -81,6 +81,7 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(LoginActivity.this, name.getText().toString() + ":" + pwd.getText().toString(), Toast.LENGTH_LONG).show();
 
                 startActivity(new Intent(LoginActivity.this, DashActivity.class));
+                finish();
             }
         });
     }
@@ -89,7 +90,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onStop() {
         name.setText("onStopBefore" + System.currentTimeMillis());
         super.onStop();
-        name.setText("onStopAfter" + System.currentTimeMillis());
+//        name.setText("onStopAfter" + System.currentTimeMillis());
     }
 
     @Override
