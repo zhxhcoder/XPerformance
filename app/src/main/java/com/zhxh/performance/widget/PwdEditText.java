@@ -64,9 +64,9 @@ public class PwdEditText extends EditText {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 //before 0表示添加，1表示删除
-                if (before == 1) {//出栈
+                if (before == 1) {//从队尾出删除
                     charDeque.pollLast();
-                } else {
+                } else {//依次加入队尾
                     for (int i = 0; i < count; i++) {
                         char a = s.charAt(start + i);
                         charDeque.offer(a);

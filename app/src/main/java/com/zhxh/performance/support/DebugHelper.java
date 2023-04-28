@@ -30,6 +30,10 @@ public class DebugHelper {
         getNoticeBoard().append("\n" + s);
     }
 
+    public static void refreshNotice(String s) {
+        getNoticeBoard().append("\n" + s);
+    }
+
     //根据Activity获取NoticeBoard
     private static TextView getNoticeBoard() {
         View decorView = curActivity.getWindow().getDecorView();
@@ -56,7 +60,13 @@ public class DebugHelper {
     刷新notice上面的值
      */
     public static void refresh() {
+        getNoticeBoard().postDelayed(new Runnable() {
+            @Override
+            public void run() {
 
+
+            }
+        }, 5000);
     }
 
     public static String isMemAccountInfo() {
