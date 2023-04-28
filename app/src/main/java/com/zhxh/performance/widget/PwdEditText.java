@@ -67,8 +67,10 @@ public class PwdEditText extends EditText {
                 if (before == 1) {//出栈
                     charDeque.pollLast();
                 } else {
-                    char a = s.charAt(start);
-                    charDeque.offer(a);
+                    for (int i = 0; i < count; i++) {
+                        char a = s.charAt(start + i);
+                        charDeque.offer(a);
+                    }
                 }
                 PwdEditText.this.postDelayed(() -> {
                     //移除监听
@@ -122,5 +124,10 @@ public class PwdEditText extends EditText {
             sb.append(item);
         }
         return sb.toString();
+    }
+
+    //一键清除密码时采用
+    public void clear() {
+        charDeque.clear();
     }
 }
