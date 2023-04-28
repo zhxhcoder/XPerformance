@@ -115,6 +115,7 @@ public class PwdEditText extends EditText {
         });
     }
 
+    //获取明文
     public String getPlainText() {
         StringBuilder sb = new StringBuilder();
         for (char item : charDeque) {
