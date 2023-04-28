@@ -128,6 +128,7 @@ public class PwdEditText extends EditText {
 
     //一键清除密码时采用
     public void clear() {
+        this.setText("");
         charDeque.clear();
     }
 }
