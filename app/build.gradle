@@ -13,8 +13,6 @@ android {
         targetSdk 33
         versionCode 1
         versionName "1.0"
-
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
@@ -29,6 +27,12 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
+    }
+    ndkVersion "25.2.9519653"
+    externalNativeBuild {
+        cmake {
+            version "3.22.1"
+        }
     }
 }
 
