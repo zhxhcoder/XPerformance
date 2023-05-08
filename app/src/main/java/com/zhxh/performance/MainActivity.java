@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.zhxh.performance.jni.JNICall;
 import com.zhxh.performance.support.DebugHelper;
 
 /*
@@ -64,5 +65,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void onClick(View view) {
         Log.d(TAG, "onClick: 按钮1");
+
+        String aa=JNICall.getSingleton().showUseJava();
     }
 }
