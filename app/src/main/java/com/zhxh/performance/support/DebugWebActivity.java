@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,11 +16,15 @@ import androidx.appcompat.app.AppCompatActivity;
  * 模拟h5调用逻辑
  */
 public class DebugWebActivity extends AppCompatActivity {
+    TextView tvResponse;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         LinearLayout ll = new LinearLayout(this);
         ll.setOrientation(LinearLayout.VERTICAL);
+
+        tvResponse = new TextView(this);
 
         //方法名
         EditText etFuncName = new EditText(this);
@@ -55,7 +60,12 @@ public class DebugWebActivity extends AppCompatActivity {
 
         params.setMargins(0, 60, 0, 0);
         ll.addView(action, params);
+        ll.addView(tvResponse, params);
 
         setContentView(ll);
+    }
+
+    public void resultForCallback(String callbackId, String methodContent) {
+        tvResponse.setText("callbackId:" + callbackId + "\nmethodContent:" + methodContent);
     }
 }
