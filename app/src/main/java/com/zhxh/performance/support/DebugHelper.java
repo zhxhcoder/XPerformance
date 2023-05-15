@@ -1,6 +1,7 @@
 package com.zhxh.performance.support;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
@@ -75,5 +76,12 @@ public class DebugHelper {
 
     public static String isLocalAccountInfo() {
         return "\n本地记住账号：" + false;
+    }
+
+    /*
+     * 模拟h5交互页面的点击
+     */
+    public static void startDebugWeb() {
+        curActivity.startActivity(new Intent(curActivity, DebugWebActivity.class));
     }
 }
