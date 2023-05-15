@@ -1,6 +1,7 @@
 package com.zhxh.performance.support;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -10,6 +11,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.lang.reflect.Method;
 
 /*
  * Created by zhxh on 2023/5/15
@@ -25,10 +28,13 @@ public class DebugWebActivity extends AppCompatActivity {
         ll.setOrientation(LinearLayout.VERTICAL);
 
         tvResponse = new TextView(this);
+        //外方法名
+        EditText etMethodName = new EditText(this);
+        etMethodName.setText("nativeBridge");
 
-        //方法名
+        //子方法名
         EditText etFuncName = new EditText(this);
-        etFuncName.setText("nativeBridge");
+        etFuncName.setHint("输入子方法名");
 
         //回调callbackId
         EditText etCallBack = new EditText(this);
@@ -43,10 +49,10 @@ public class DebugWebActivity extends AppCompatActivity {
         action.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(DebugWebActivity.this,
-                        etFuncName.getText().toString() + "\n" +
-                                etCallBack.getText().toString() + "\n" +
-                                etParams.getText().toString(), Toast.LENGTH_LONG).show();
+                invokeJavaMethod(etMethodName.getText().toString(),
+                        etFuncName.getText().toString(),
+                        etCallBack.getText().toString(),
+                        etParams.getText().toString());
             }
         });
 
@@ -54,6 +60,7 @@ public class DebugWebActivity extends AppCompatActivity {
                 ViewGroup.LayoutParams.WRAP_CONTENT);
         params.setMargins(0, 30, 0, 0);
 
+        ll.addView(etMethodName, params);
         ll.addView(etFuncName, params);
         ll.addView(etCallBack, params);
         ll.addView(etParams, params);
@@ -63,6 +70,48 @@ public class DebugWebActivity extends AppCompatActivity {
         ll.addView(tvResponse, params);
 
         setContentView(ll);
+    }
+
+    /*
+     methodName不可能为空
+     */
+    private Object invokeJavaMethod(String methodName, String funcName, String callbackId, String params) {
+        Toast.makeText(DebugHelper.curActivity,
+                methodName + "\n" +
+                        funcName + "\n" +
+                        callbackId + "\n" +
+                        params, Toast.LENGTH_SHORT).show();
+
+        DebugWebJSObject jsObject = new DebugWebJSObject(null, this, null);
+        Class clazz = DebugWebJSObject.class;
+        Object resultObj = null;
+        try {
+            Method method = null;
+            if (!TextUtils.isEmpty(funcName) && !TextUtils.isEmpty(callbackId) && !TextUtils.isEmpty(params)) {
+                // 三个参数 nativeBridge
+                method = clazz.getMethod(methodName, String.class, String.class, String.class);
+                method.setAccessible(true);
+                resultObj = method.invoke(jsObject, funcName, callbackId, params);
+            } else if (!TextUtils.isEmpty(callbackId) && !TextUtils.isEmpty(params)) {
+                // 两个参数
+                method = clazz.getMethod(methodName, String.class, String.class);
+                method.setAccessible(true);
+                resultObj = method.invoke(jsObject, callbackId, params);
+            } else if (TextUtils.isEmpty(funcName) && TextUtils.isEmpty(callbackId) && TextUtils.isEmpty(params)) {
+                // 无参数
+                method = clazz.getMethod(methodName);
+                method.setAccessible(true);
+                resultObj = method.invoke(jsObject);
+            } else {//一个参数
+                method = clazz.getMethod(methodName, String.class);
+                method.setAccessible(true);
+                resultObj = method.invoke(jsObject, !TextUtils.isEmpty(params) ? params : callbackId);
+            }
+            return resultObj;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "";
+        }
     }
 
     public void resultForCallback(String callbackId, String methodContent) {
