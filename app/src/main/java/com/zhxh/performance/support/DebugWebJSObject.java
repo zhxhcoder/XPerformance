@@ -33,4 +33,9 @@ public class DebugWebJSObject {
         Toast.makeText(DebugHelper.curActivity, token, Toast.LENGTH_LONG).show();
     }
 
+    @JavascriptInterface
+    public void open() {
+        Toast.makeText(DebugHelper.curActivity, "open", Toast.LENGTH_LONG).show();
+    }
+
 }

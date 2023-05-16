@@ -39,13 +39,14 @@ public class ShowActivityNameCallbacks implements Application.ActivityLifecycleC
             String activityName = activity.getClass().getSimpleName();
 
             TextView textView = new TextView(activity, null);
-            textView.setClickable(false);
+            textView.setClickable(true);
             textView.setText(String.format("%s%s", activityName, DebugHelper.debugInfo()));
             textView.setTextSize(11);
             textView.setTextColor(Color.parseColor("#00A443"));
-            textView.setPadding(25, 140, 0, 0);
-            textView.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-            fl.addView(textView);
+            FrameLayout.LayoutParams params =new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            params.setMargins(25, 150, 0, 0);
+
+            fl.addView(textView,params);
             //在添加textView之后再来赋值
             DebugHelper.curActivityName = activityName;
             DebugHelper.curActivity = activity;

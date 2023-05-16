@@ -1,7 +1,9 @@
 package com.zhxh.performance.support;
 
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -20,6 +22,8 @@ import java.lang.reflect.Method;
  */
 public class DebugWebActivity extends AppCompatActivity {
     TextView tvResponse;
+    EditText editMethod;
+    EditText editFunc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,12 +33,31 @@ public class DebugWebActivity extends AppCompatActivity {
 
         tvResponse = new TextView(this);
         //外方法名
-        EditText etMethodName = new EditText(this);
-        etMethodName.setText("nativeBridge");
-
+        editMethod = new EditText(this);
         //子方法名
-        EditText etFuncName = new EditText(this);
-        etFuncName.setHint("输入子方法名");
+        editFunc = new EditText(this);
+        editMethod.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if ("nativeBridge".equals(s.toString())) {
+                    editFunc.setVisibility(View.VISIBLE);
+                } else {
+                    editFunc.setVisibility(View.GONE);
+                }
+            }
+        });
+
+        editMethod.setText("nativeBridge");
 
         //回调callbackId
         EditText etCallBack = new EditText(this);
@@ -49,10 +72,13 @@ public class DebugWebActivity extends AppCompatActivity {
         action.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                invokeJavaMethod(etMethodName.getText().toString(),
-                        etFuncName.getText().toString(),
+                Object res = invokeJavaMethod(editMethod.getText().toString(),
+                        editFunc.getText().toString(),
                         etCallBack.getText().toString(),
                         etParams.getText().toString());
+
+                Toast.makeText(DebugHelper.curActivity,
+                        res.toString(), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -60,8 +86,8 @@ public class DebugWebActivity extends AppCompatActivity {
                 ViewGroup.LayoutParams.WRAP_CONTENT);
         params.setMargins(0, 30, 0, 0);
 
-        ll.addView(etMethodName, params);
-        ll.addView(etFuncName, params);
+        ll.addView(editMethod, params);
+        ll.addView(editFunc, params);
         ll.addView(etCallBack, params);
         ll.addView(etParams, params);
 
@@ -72,16 +98,11 @@ public class DebugWebActivity extends AppCompatActivity {
         setContentView(ll);
     }
 
+
     /*
      methodName不可能为空
      */
     private Object invokeJavaMethod(String methodName, String funcName, String callbackId, String params) {
-        Toast.makeText(DebugHelper.curActivity,
-                methodName + "\n" +
-                        funcName + "\n" +
-                        callbackId + "\n" +
-                        params, Toast.LENGTH_SHORT).show();
-
         DebugWebJSObject jsObject = new DebugWebJSObject(null, this, null);
         Class clazz = DebugWebJSObject.class;
         Object resultObj = null;
@@ -110,7 +131,7 @@ public class DebugWebActivity extends AppCompatActivity {
             return resultObj;
         } catch (Exception e) {
             e.printStackTrace();
-            return "";
+            return "Exception";
         }
     }
 
