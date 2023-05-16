@@ -41,6 +41,12 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
+        findViewById(R.id.btnWeb).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, DebugJSActivity.class));
+            }
+        });
     }
 
     /*
@@ -66,6 +72,6 @@ public class MainActivity extends AppCompatActivity {
     public void onClick(View view) {
         Log.d(TAG, "onClick: 按钮1");
 
-        String aa=JNICall.getSingleton().showUseJava();
+        String aa = JNICall.getSingleton().showUseJava();
     }
 }

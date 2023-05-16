@@ -15,7 +15,7 @@
     <LinearLayout
         android:id="@+id/llLayout"
         android:layout_width="300dp"
-        android:layout_height="200dp"
+        android:layout_height="match_parent"
         android:layout_marginTop="10dp"
         android:background="#077"
         android:orientation="vertical"
@@ -44,6 +44,12 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="长按按钮3" />
+        <Button
+            android:id="@+id/btnWeb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Jsbridge测试" />
     </LinearLayout>
 
 </LinearLayout>
