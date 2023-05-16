@@ -1,10 +1,121 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>这是一个HTML5的网页</title>
+    <title>JS测试</title>
+    <style>
+
+    .smart-green {
+      min-height: 95%;
+      padding: 0 16px 15px;
+      margin-top: 10px;
+      margin-right: 10px;
+      margin-left: 10px;
+      background-color: #fff;
+      box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .05);
+    }
+
+    .smart-green h1 {
+      font: 24px "Trebuchet MS", Arial, Helvetica, sans-serif;
+      padding: 20px 0px 20px 40px;
+      display: block;
+      margin: -30px -30px 10px -30px;
+      color: #FFF;
+      background: #9DC45F;
+      text-shadow: 1px 1px 1px #949494;
+      border-radius: 5px 5px 0px 0px;
+      -webkit-border-radius: 5px 5px 0px 0px;
+      -moz-border-radius: 5px 5px 0px 0px;
+      border-bottom: 1px solid #89AF4C;
+
+    }
+
+    .smart-green label > span {
+      float: left;
+      color: #5E5E5E;
+      display: inline;
+
+    }
+
+    .smart-green input[type="text"], .smart-green input[type="email"], .smart-green textarea, .smart-green select {
+      color: #555;
+      height: 32px;
+      line-height: 15px;
+      width: 100%;
+      padding: 0px 0px 0px 10px;
+      margin-top: 2px;
+      border: 1px solid #E5E5E5;
+      background: #FBFBFB;
+      outline: 0;
+      -webkit-box-shadow: inset 1px 1px 2px rgba(238, 238, 238, 0.2);
+      box-shadow: inset 1px 1px 2px rgba(238, 238, 238, 0.2);
+      font: normal 14px/14px Arial, Helvetica, sans-serif;
+    }
+
+    .smart-green textarea {
+      height: 360px;
+      padding-top: 10px;
+    }
+
+    .smart-green select {
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      text-indent: 0.01px;
+      text-overflow: '';
+      width: 100%;
+      height: 30px;
+    }
+
+    .smart-green .button {
+      background-color: #9DC45F;
+      border-radius: 2px;
+      -webkit-border-radius: 2px;
+      -moz-border-border-radius: 2px;
+      border: none;
+      padding: 10px 25px 10px 25px;
+      color: #FFF;
+      text-shadow: 1px 1px 1px #949494;
+    }
+
+    .smart-green .button:hover {
+      background-color: #80A24A;
+    }
+
+
+
+
+    </style>
+    <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <link rel="shortcut icon" href="micon.ico"/>
+
 </head>
-<body>
-<p>Hello HTML5</p>
+<body style="background-color: rgba(204,204,204,0.23)">
+
+<div class="smart-green">
+    </br>
+
+    <form enctype='application/json' method="post">
+
+        <label><h4>方法：</h4></label>
+        <textarea id="methodName" style="height: 20px" name="method_name">method_name</textarea>
+        <label><h4>子方法：</h4></label>
+        <textarea id="funcName" style="height: 20px" name="func_name">func_name</textarea>
+        <label><h4>回调ID：</h4></label>
+        <textarea id="cbName" style="height: 20px" name="cb_name">cb_name</textarea>
+        <label><h4>参数：</h4></label>
+        <textarea id="paramName" style="height: 120px" name="param_name">param_name</textarea>
+
+    </form>
+    </br>
+
+    <button type="submit" class="button">执行</button>
+
+</div>
+
+<script type="text/javascript">
+
+
+</script>
 </body>
 </html>
