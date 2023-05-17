@@ -44,12 +44,22 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="长按按钮3" />
+
         <Button
             android:id="@+id/btnWeb"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="Jsbridge测试" />
+            android:text="JsInterface测试"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/btnJsbridge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Jsbridge测试"
+            android:textAllCaps="false" />
     </LinearLayout>
 
 </LinearLayout>

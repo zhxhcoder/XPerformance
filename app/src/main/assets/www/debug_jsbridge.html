@@ -1,0 +1,159 @@
+<html>
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="content-type">
+    <title>
+        JsBridge测试
+    </title>
+</head>
+
+<body>
+<p style="text-align:center;">
+    <xmp id="show1" style="font-size:30px;text-align:center;">
+    </xmp>
+    <xmp id="show2" style="font-size:30px;text-align:center;">
+    </xmp>
+</p>
+<p style="text-align:center;">
+    <input type="button" id="text1" value="登录" onclick="testLogin()"
+           style="font-size:30px;width:300px;height:50px;text-align:center;"/>
+</p>
+<p style="text-align:center;">
+    <input type="button" id="text2" value="获取DToken" onclick="testGetDToken()"
+           style="font-size:30px;width:300px;height:50px;text-align:center;"/>
+</p>
+<p style="text-align:center;">
+    <input type="button" id="enter" value="打电话" onclick="testCall();"
+           style="font-size:30px;width:300px;height:50px;text-align:center;"/>
+</p>
+
+<p style="text-align:center;">
+    <input type="button" id="share" value="分享" onclick="shareV1();"
+           style="font-size:30px;width:300px;height:50px;text-align:center;"/>
+</p>
+
+<p style="text-align:center;">
+    <input type="button" id="h5Dialog" value="h5对话框" onclick="testH5Dialog();"
+           style="font-size:30px;width:300px;height:50px;text-align:center;"/>
+</p>
+
+
+<p style="text-align:center;">
+    <input type="button" id="intercept" value="拦截" onclick="backIntercept();"
+           style="font-size:30px;width:300px;height:50px;text-align:center;"/>
+</p>
+
+</body>
+<script>
+        function testH5Dialog(){
+            if(confirm("是否真正想退出")){
+              testClose()
+            }
+        }
+
+        function testDiv() {
+            document.getElementById("show").innerHTML = document.getElementsByTagName("html")[0].innerHTML;
+        }
+
+        function backIntercept() {
+            window.WebViewJavascriptBridge.callHandler(
+                'backIntercept'
+                , {'force': '1', 'action': 'dialog'}
+                , function(responseData) {
+
+                }
+            );
+        }
+
+        function testClose() {
+            window.WebViewJavascriptBridge.callHandler(
+                'closeWebview'
+                , {}
+                , function(responseData) {
+
+                }
+            );
+        }
+
+        function testLogin() {
+            window.WebViewJavascriptBridge.callHandler(
+                'syncCalendarEvent'
+                , {'title': '直播测试', 'location': '世界中心', 'start': 111111111, 'end': 1222222222, 'offset': 1800000}
+                , function(responseData) {
+
+                }
+            );
+        }
+
+        function shareV1() {
+            window.WebViewJavascriptBridge.callHandler(
+                'v1WebShare'
+                , {'param': '{\"shareContex\":[{\"platformName\":\"QQ好友\",\"platformType\":\"100\",\"imgUrl\":\"http://yqztest.yirendai.com/zhuan/img/share.jpg\",\"shareUrl\":\"http://yqztest.yirendai.com/zhuan/join.html?rel=ADEAZ1M2B2tTMQ==&coef=10\",\"title\":\"123456789\",\"context\":\"test\"},{\"platformName\":\"微信好友\",\"platformType\":\"101\",\"imgUrl\":\"http://yqztest.yirendai.com/zhuan/img/share.jpg\",\"shareUrl\":\"http://yqztest.yirendai.com/zhuan/join.html?rel=ADEAZ1M2B2tTMQ==&coef=10\",\"title\":\"123456789\",\"context\":\"test\"},{\"platformName\":\"微信朋友圈\",\"platformType\":\"102\",\"imgUrl\":\"http://yqztest.yirendai.com/zhuan/img/share.jpg\",\"shareUrl\":\"http://yqztest.yirendai.com/zhuan/join.html?rel=ADEAZ1M2B2tTMQ==&coef=10\",\"title\":\"123456789\",\"context\":\"test\"},{\"platformName\":\"新浪微博\",\"platformType\":\"103\",\"imgUrl\":\"http://yqztest.yirendai.com/zhuan/img/share.jpg\",\"shareUrl\":\"http://yqztest.yirendai.com/zhuan/join.html?rel=ADEAZ1M2B2tTMQ==&coef=10\",\"title\":\"123456789\",\"context\":\"test\"},{\"platformName\":\"二维码\",\"platformType\":\"104\",\"imgUrl\":\"http://yqztest.yirendai.com/zhuan/img/share.jpg\",\"shareUrl\":\"http://yqztest.yirendai.com/zhuan/join.html?rel=ADEAZ1M2B2tTMQ==&coef=10\",\"title\":\"123456789\",\"context\":\"test\"},{\"platformName\":\"复制链接 \",\"platformType\":\"105\",\"imgUrl\":\"http://yqztest.yirendai.com/zhuan/img/share.jpg\",\"shareUrl\":\"http://yqztest.yirendai.com/zhuan/join.html?rel=ADEAZ1M2B2tTMQ==&coef=10\",\"title\":\"123456789\",\"context\":\"test\"},{\"platformName\":\"短信\",\"platformType\":\"106\",\"imgUrl\":\"http://yqztest.yirendai.com/zhuan/img/share.jpg\",\"shareUrl\":\"http://yqztest.yirendai.com/zhuan/join.html?rel=ADEAZ1M2B2tTMQ==&coef=10\",\"title\":\"123456789\",\"context\":\"test\"}],\"shareForm\":\"zhuan\"}'}
+                , function(responseData) {
+                    <!--document.getElementById("show2").innerHTML = "DToken = " + responseData-->
+                }
+            );
+        }
+
+        function testGetDToken() {
+            window.WebViewJavascriptBridge.callHandler(
+                'getDToken'
+                , {'param': ''}
+                , function(responseData) {
+                    document.getElementById("show2").innerHTML = "DToken = " + responseData
+                }
+            );
+        }
+
+        function testCall() {
+            window.WebViewJavascriptBridge.callHandler(
+                'call'
+                , {'param': '15201127905'}
+                , function(responseData) {
+
+                }
+            );
+        }
+
+
+        function bridgeLog(logContent) {
+            document.getElementById("show").innerHTML = logContent;
+        }
+
+        function connectWebViewJavascriptBridge(callback) {
+            if (window.WebViewJavascriptBridge) {
+                callback(WebViewJavascriptBridge)
+            } else {
+                document.addEventListener(
+                    'WebViewJavascriptBridgeReady'
+                    , function() {
+                        callback(WebViewJavascriptBridge)
+                    },
+                    false
+                );
+            }
+        }
+
+        connectWebViewJavascriptBridge(function(bridge) {
+            bridge.init(function(message, responseCallback) {
+                console.log('JS got a message', message);
+                var data = {
+                    'Javascript Responds': '测试中文!'
+                };
+                console.log('JS responding with', data);
+                responseCallback(data);
+            });
+
+            bridge.registerHandler("fromNative", function(data, responseCallback) {
+                document.getElementById("show1").innerHTML = ("FromNative = " + data);
+                var responseData = "大木你好";
+                responseCallback(responseData);
+            });
+
+            bridge.registerHandler("dialog", function(data, responseCallback) {
+                testH5Dialog()
+                responseCallback(responseData);
+            });
+        })
+
+</script>
+</html>

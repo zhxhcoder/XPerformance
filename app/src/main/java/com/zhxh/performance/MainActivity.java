@@ -44,7 +44,17 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.btnWeb).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, DebugJSActivity.class));
+                Intent i = new Intent(MainActivity.this, DebugJSActivity.class);
+                i.putExtra("url", "file:android_asset/www/debug_js_native.html");
+                startActivity(i);
+            }
+        });
+        findViewById(R.id.btnJsbridge).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this, DebugJSActivity.class);
+                i.putExtra("url", "file:android_asset/www/debug_jsbridge.html");
+                startActivity(i);
             }
         });
     }
