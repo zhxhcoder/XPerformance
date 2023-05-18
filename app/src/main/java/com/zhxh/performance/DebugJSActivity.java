@@ -3,6 +3,7 @@ package com.zhxh.performance;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.webkit.WebView;
 
 public class DebugJSActivity extends AppCompatActivity {
@@ -17,5 +18,10 @@ public class DebugJSActivity extends AppCompatActivity {
         setContentView(wb);
 
         wb.loadUrl(url);
+    }
+
+    private void exeJsFunc(String callbackId, String methodContent) {
+        String loadMethodUrl = "javascript:" + "resultForCallback" + "('" + callbackId + "'," + methodContent + ")";
+        wb.loadUrl(loadMethodUrl);
     }
 }
