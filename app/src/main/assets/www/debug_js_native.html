@@ -82,9 +82,6 @@
       background-color: #80A24A;
     }
 
-
-
-
     </style>
     <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
     <link rel="shortcut icon" href="micon.ico"/>
@@ -111,16 +108,36 @@
 
     <button type="submit" class="button">执行</button>
 
+    <label><h4>结果：</h4></label>
+
+    <xmp id="show1" style="font-size:30px;text-align:center;">
+    </xmp>
 </div>
 
 <script type="text/javascript">
 
-        function testCall() {
+  function testData(params) {
+      document.getElementById("show1").innerHTML = params;
+  }
 
-        alert('xx');
+  var formObj = document.querySelector('form');
 
-        }
+  formObj.addEventListener('submit', function (event) {
+    event.preventDefault();
+    var dialog=confirm('准备调用了')
+    if (dialog==true) {
+        document.getElementById("show1").innerHTML = convert_FormData_to_json(new FormData(formObj));
+    }
+  }, false);
 
+  //FormData转化为json
+  var convert_FormData_to_json = function (formData) {
+    var objData = {};
+    for (var entry of formData.entries()) {
+      objData[entry[0]] = entry[1];
+    }
+    return JSON.stringify(objData);
+  };
 </script>
 </body>
 </html>
