@@ -103,10 +103,21 @@
         <label><h4>参数：</h4></label>
         <textarea id="paramName" style="height: 120px" name="param_name">param_name</textarea>
 
+
+        <table style="margin-top:30px">
+
+            <tr>
+                <td><input type="text" name="flag" value="login" hidden></td>
+
+                <td>
+                    <button type="submit" class="button">执行</button>
+                </td>
+            </tr>
+
+        </table>
+
     </form>
     </br>
-
-    <button type="submit" class="button">执行</button>
 
     <label><h4>结果：</h4></label>
 
@@ -120,6 +131,7 @@
       document.getElementById("show1").innerHTML = params;
   }
 
+
   var formObj = document.querySelector('form');
 
   formObj.addEventListener('submit', function (event) {
@@ -130,7 +142,7 @@
     }
   }, false);
 
-  //FormData转化为json
+  // 辅助函数：FormData转化为json
   var convert_FormData_to_json = function (formData) {
     var objData = {};
     for (var entry of formData.entries()) {
