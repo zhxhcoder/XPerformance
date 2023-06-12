@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(MainActivity.this, DebugJSActivity.class);
-                i.putExtra("url", "file:android_asset/www/debug_jsbridge.html");
+                i.putExtra("url", "file:android_asset/www/debug_js_native.html");
                 startActivity(i);
             }
         });
