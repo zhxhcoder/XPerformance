@@ -21,7 +21,7 @@ public class DebugJSActivity extends AppCompatActivity {
     }
 
     private void exeJsFunc(String callbackId, String methodContent) {
-        String loadMethodUrl = "javascript:" + "resultForCallback" + "('" + callbackId + "'," + methodContent + ")";
+        String loadMethodUrl = "javascript:" + "toJsCallback" + "('" + callbackId + "'," + methodContent + ")";
         wb.loadUrl(loadMethodUrl);
     }
 }

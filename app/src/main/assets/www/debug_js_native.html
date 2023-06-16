@@ -123,12 +123,19 @@
 
     <xmp id="show1" style="font-size:30px;text-align:center;">
     </xmp>
+    <xmp id="show2" style="font-size:30px;text-align:center;">
+    </xmp>
 </div>
 
 <script type="text/javascript">
 
-  function testData(params) {
+  function toJsCallback(params) {
       document.getElementById("show1").innerHTML = params;
+  }
+
+  function toJsCallback(callbackId, methodContent) {
+      document.getElementById("show1").innerHTML = callbackId;
+      document.getElementById("show2").innerHTML = methodContent;
   }
 
   var formObj = document.querySelector('form');
