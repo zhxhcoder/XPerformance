@@ -29,6 +29,7 @@ public class DebugJSActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
+                exeJsFunc("123456");
                 exeJsFunc("123", "哈哈哈");
             }
         }, 2000);
@@ -36,7 +37,12 @@ public class DebugJSActivity extends AppCompatActivity {
     }
 
     private void exeJsFunc(String callbackId, String methodContent) {
-        String loadMethodUrl = "javascript:" + "toJsCallbackTwo" + "('" + callbackId + "'," + methodContent + ")";
+        String loadMethodUrl = "javascript:" + "toJsCallbackTwo" + "('" + callbackId + "'," + methodContent + ");";
+        wb.loadUrl(loadMethodUrl);
+    }
+
+    private void exeJsFunc(String params) {
+        String loadMethodUrl = "javascript:toJsCallback(" + params + ");";
         wb.loadUrl(loadMethodUrl);
     }
 }
