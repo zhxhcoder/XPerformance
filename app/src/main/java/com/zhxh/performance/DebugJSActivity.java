@@ -7,6 +7,8 @@ import android.os.Handler;
 import android.view.View;
 import android.webkit.WebView;
 
+import java.util.Objects;
+
 public class DebugJSActivity extends AppCompatActivity {
     WebView wb;
 
@@ -25,6 +27,12 @@ public class DebugJSActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        Objects.requireNonNull(this.getSupportActionBar()).getCustomView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                exeJsFunc("666666");
+            }
+        });
 
         new Handler().postDelayed(new Runnable() {
             @Override
