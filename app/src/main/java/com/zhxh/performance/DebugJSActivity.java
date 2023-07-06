@@ -21,7 +21,6 @@ public class DebugJSActivity extends AppCompatActivity {
         setContentView(wb);
 
         wb.loadUrl(url);
-
     }
 
     @Override
